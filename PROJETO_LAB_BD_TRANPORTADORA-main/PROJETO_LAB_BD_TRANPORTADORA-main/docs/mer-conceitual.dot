@@ -1,0 +1,264 @@
+digraph MER {
+  graph [
+    rankdir=LR,
+    bgcolor="white",
+    pad=0.25,
+    nodesep=0.28,
+    ranksep=0.62,
+    splines=ortho,
+    outputorder=edgesfirst,
+    fontname="Arial",
+    fontsize=10
+  ];
+  node [shape=plain, fontname="Arial", fontsize=9];
+  edge [fontname="Arial", fontsize=8, color="#5C677D", penwidth=1.15, arrowsize=0.75, labelfontcolor="#374151"];
+
+  // helper styles encoded directly in HTML tables
+  CLIENTE [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#1F4E78">
+      <TR><TD BGCOLOR="#1F4E78"><FONT COLOR="white"><B>CLIENTE</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>id_cliente</B> [ID]</TD></TR>
+      <TR><TD ALIGN="LEFT">telefone</TD></TR>
+      <TR><TD ALIGN="LEFT">email</TD></TR>
+      <TR><TD ALIGN="LEFT">data_cadastro</TD></TR>
+    </TABLE>>];
+
+  CLIENTE_PF [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#2E8B57">
+      <TR><TD BGCOLOR="#2E8B57"><FONT COLOR="white"><B>CLIENTE_PF</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>id_cliente</B> [ID herdado]</TD></TR>
+      <TR><TD ALIGN="LEFT">nome</TD></TR>
+      <TR><TD ALIGN="LEFT">cpf [chave candidata]</TD></TR>
+    </TABLE>>];
+
+  CLIENTE_PJ [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#2E8B57">
+      <TR><TD BGCOLOR="#2E8B57"><FONT COLOR="white"><B>CLIENTE_PJ</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>id_cliente</B> [ID herdado]</TD></TR>
+      <TR><TD ALIGN="LEFT">razao_social</TD></TR>
+      <TR><TD ALIGN="LEFT">nome_fantasia</TD></TR>
+      <TR><TD ALIGN="LEFT">cnpj [chave candidata]</TD></TR>
+    </TABLE>>];
+
+  ISA_CLIENTE [shape=diamond, style="filled", fillcolor="#E8F5E9", color="#2E8B57", label="ISA\nTOTAL / EXCLUSIVA", fontsize=7, width=1.0, height=0.5];
+
+  CIDADE [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#1F4E78">
+      <TR><TD BGCOLOR="#1F4E78"><FONT COLOR="white"><B>CIDADE</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>id_cidade</B> [ID]</TD></TR>
+      <TR><TD ALIGN="LEFT">nome</TD></TR>
+      <TR><TD ALIGN="LEFT">uf</TD></TR>
+    </TABLE>>];
+
+  ENDERECO [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#1F4E78">
+      <TR><TD BGCOLOR="#1F4E78"><FONT COLOR="white"><B>ENDERECO</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>id_endereco</B> [ID]</TD></TR>
+      <TR><TD ALIGN="LEFT">logradouro</TD></TR>
+      <TR><TD ALIGN="LEFT">numero</TD></TR>
+      <TR><TD ALIGN="LEFT">complemento</TD></TR>
+      <TR><TD ALIGN="LEFT">bairro</TD></TR>
+      <TR><TD ALIGN="LEFT">cep</TD></TR>
+    </TABLE>>];
+
+  ENCOMENDA [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#1F4E78">
+      <TR><TD BGCOLOR="#1F4E78"><FONT COLOR="white"><B>ENCOMENDA</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>id_encomenda</B> [ID]</TD></TR>
+      <TR><TD ALIGN="LEFT">codigo_rastreio</TD></TR>
+      <TR><TD ALIGN="LEFT">data_postagem</TD></TR>
+      <TR><TD ALIGN="LEFT">valor_declarado</TD></TR>
+      <TR><TD ALIGN="LEFT"><I>status_atual [derivado]</I></TD></TR>
+    </TABLE>>];
+
+  VOLUME [label=<
+    <TABLE BORDER="2" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#C55A11">
+      <TR><TD BGCOLOR="#C55A11"><FONT COLOR="white"><B>VOLUME_ENCOMENDA</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>num_volume</B> [ID parcial]</TD></TR>
+      <TR><TD ALIGN="LEFT">peso</TD></TR>
+      <TR><TD ALIGN="LEFT">altura</TD></TR>
+      <TR><TD ALIGN="LEFT">largura</TD></TR>
+      <TR><TD ALIGN="LEFT">comprimento</TD></TR>
+      <TR><TD ALIGN="LEFT">descricao_conteudo</TD></TR>
+      <TR><TD ALIGN="LEFT"><I>entidade fraca</I></TD></TR>
+    </TABLE>>];
+
+  HISTORICO [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#B22222">
+      <TR><TD BGCOLOR="#B22222"><FONT COLOR="white"><B>HISTORICO_STATUS_ENCOMENDA</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>id_historico</B> [ID]</TD></TR>
+      <TR><TD ALIGN="LEFT">status [dominio fechado]</TD></TR>
+      <TR><TD ALIGN="LEFT">data_hora</TD></TR>
+      <TR><TD ALIGN="LEFT">observacao</TD></TR>
+    </TABLE>>];
+
+  CD [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#1F4E78">
+      <TR><TD BGCOLOR="#1F4E78"><FONT COLOR="white"><B>CENTRO_DISTRIBUICAO</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>id_centro</B> [ID]</TD></TR>
+      <TR><TD ALIGN="LEFT">codigo</TD></TR>
+      <TR><TD ALIGN="LEFT">nome</TD></TR>
+    </TABLE>>];
+
+  OCORRENCIA [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#1F4E78">
+      <TR><TD BGCOLOR="#1F4E78"><FONT COLOR="white"><B>OCORRENCIA</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>id_ocorrencia</B> [ID]</TD></TR>
+      <TR><TD ALIGN="LEFT">tipo</TD></TR>
+      <TR><TD ALIGN="LEFT">data_hora</TD></TR>
+      <TR><TD ALIGN="LEFT">descricao</TD></TR>
+      <TR><TD ALIGN="LEFT">situacao</TD></TR>
+    </TABLE>>];
+
+  ROTA [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#1F4E78">
+      <TR><TD BGCOLOR="#1F4E78"><FONT COLOR="white"><B>ROTA</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>id_rota</B> [ID]</TD></TR>
+      <TR><TD ALIGN="LEFT">nome</TD></TR>
+      <TR><TD ALIGN="LEFT">descricao</TD></TR>
+      <TR><TD ALIGN="LEFT">situacao</TD></TR>
+    </TABLE>>];
+
+  ROTA_CIDADE [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#7030A0">
+      <TR><TD BGCOLOR="#7030A0"><FONT COLOR="white"><B>ROTA_CIDADE</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">ordem_parada</TD></TR>
+      <TR><TD ALIGN="LEFT">distancia_desde_anterior_km</TD></TR>
+      <TR><TD ALIGN="LEFT">tempo_estimado_deslocamento_min</TD></TR>
+      <TR><TD ALIGN="LEFT"><I>associativa N:N</I></TD></TR>
+    </TABLE>>];
+
+  EXPEDICAO [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#1F4E78">
+      <TR><TD BGCOLOR="#1F4E78"><FONT COLOR="white"><B>EXPEDICAO</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>id_expedicao</B> [ID]</TD></TR>
+      <TR><TD ALIGN="LEFT">data_hora_saida</TD></TR>
+      <TR><TD ALIGN="LEFT">data_hora_prevista_chegada</TD></TR>
+      <TR><TD ALIGN="LEFT">data_hora_chegada</TD></TR>
+      <TR><TD ALIGN="LEFT">status_expedicao</TD></TR>
+    </TABLE>>];
+
+  EXP_ENC [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#7030A0">
+      <TR><TD BGCOLOR="#7030A0"><FONT COLOR="white"><B>EXPEDICAO_ENCOMENDA</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">ordem_carregamento</TD></TR>
+      <TR><TD ALIGN="LEFT">data_hora_carregamento</TD></TR>
+      <TR><TD ALIGN="LEFT">data_hora_descarregamento</TD></TR>
+      <TR><TD ALIGN="LEFT"><I>associativa N:N</I></TD></TR>
+    </TABLE>>];
+
+  FUNCIONARIO [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#1F4E78">
+      <TR><TD BGCOLOR="#1F4E78"><FONT COLOR="white"><B>FUNCIONARIO</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>id_funcionario</B> [ID]</TD></TR>
+      <TR><TD ALIGN="LEFT">nome</TD></TR>
+      <TR><TD ALIGN="LEFT">cpf</TD></TR>
+      <TR><TD ALIGN="LEFT">data_admissao</TD></TR>
+      <TR><TD ALIGN="LEFT">telefone</TD></TR>
+      <TR><TD ALIGN="LEFT">email</TD></TR>
+    </TABLE>>];
+
+  MOTORISTA [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#2E8B57">
+      <TR><TD BGCOLOR="#2E8B57"><FONT COLOR="white"><B>MOTORISTA</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>id_funcionario</B> [ID herdado]</TD></TR>
+      <TR><TD ALIGN="LEFT">numero_cnh</TD></TR>
+      <TR><TD ALIGN="LEFT">categoria_cnh</TD></TR>
+      <TR><TD ALIGN="LEFT">data_emissao_cnh</TD></TR>
+      <TR><TD ALIGN="LEFT">data_validade_cnh</TD></TR>
+    </TABLE>>];
+
+  OPERADOR [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#2E8B57">
+      <TR><TD BGCOLOR="#2E8B57"><FONT COLOR="white"><B>OPERADOR_LOGISTICO</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>id_funcionario</B> [ID herdado]</TD></TR>
+      <TR><TD ALIGN="LEFT">setor</TD></TR>
+      <TR><TD ALIGN="LEFT">turno</TD></TR>
+    </TABLE>>];
+
+  ISA_FUNC [shape=diamond, style="filled", fillcolor="#E8F5E9", color="#2E8B57", label="ISA\nTOTAL / EXCLUSIVA", fontsize=7, width=1.0, height=0.5];
+
+  VEICULO [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#1F4E78">
+      <TR><TD BGCOLOR="#1F4E78"><FONT COLOR="white"><B>VEICULO</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>id_veiculo</B> [ID]</TD></TR>
+      <TR><TD ALIGN="LEFT">placa</TD></TR>
+      <TR><TD ALIGN="LEFT">modelo</TD></TR>
+      <TR><TD ALIGN="LEFT">capacidade_carga</TD></TR>
+      <TR><TD ALIGN="LEFT">categoria_cnh_exigida</TD></TR>
+      <TR><TD ALIGN="LEFT">situacao</TD></TR>
+    </TABLE>>];
+
+  TENTATIVA [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#1F4E78">
+      <TR><TD BGCOLOR="#1F4E78"><FONT COLOR="white"><B>TENTATIVA_ENTREGA</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>id_tentativa</B> [ID]</TD></TR>
+      <TR><TD ALIGN="LEFT">data_hora</TD></TR>
+      <TR><TD ALIGN="LEFT">resultado</TD></TR>
+      <TR><TD ALIGN="LEFT">motivo_insucesso</TD></TR>
+      <TR><TD ALIGN="LEFT">recebedor</TD></TR>
+    </TABLE>>];
+
+  SERVICO [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#1F4E78">
+      <TR><TD BGCOLOR="#1F4E78"><FONT COLOR="white"><B>SERVICO_ADICIONAL</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>id_servico</B> [ID]</TD></TR>
+      <TR><TD ALIGN="LEFT">nome</TD></TR>
+      <TR><TD ALIGN="LEFT">descricao</TD></TR>
+      <TR><TD ALIGN="LEFT">valor_referencia</TD></TR>
+      <TR><TD ALIGN="LEFT">ativo</TD></TR>
+    </TABLE>>];
+
+  ENC_SERV [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#7030A0">
+      <TR><TD BGCOLOR="#7030A0"><FONT COLOR="white"><B>ENCOMENDA_SERVICO</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">valor_contratado</TD></TR>
+      <TR><TD ALIGN="LEFT">data_contratacao</TD></TR>
+      <TR><TD ALIGN="LEFT"><I>associativa N:N</I></TD></TR>
+    </TABLE>>];
+
+  // Specializations
+  CLIENTE -> ISA_CLIENTE [arrowhead=none, color="#2E8B57", penwidth=1.4];
+  ISA_CLIENTE -> CLIENTE_PF [arrowhead=none, color="#2E8B57", penwidth=1.4];
+  ISA_CLIENTE -> CLIENTE_PJ [arrowhead=none, color="#2E8B57", penwidth=1.4];
+
+  FUNCIONARIO -> ISA_FUNC [arrowhead=none, color="#2E8B57", penwidth=1.4];
+  ISA_FUNC -> MOTORISTA [arrowhead=none, color="#2E8B57", penwidth=1.4];
+  ISA_FUNC -> OPERADOR [arrowhead=none, color="#2E8B57", penwidth=1.4];
+
+  // Relationships with textual cardinalities (authoritative table in document)
+  CLIENTE -> ENCOMENDA [dir=both, arrowtail=none, arrowhead=none, label="remete", taillabel="(0,N)", headlabel="(1,1)", labeldistance=1.5];
+  CIDADE -> ENDERECO [dir=both, arrowtail=none, arrowhead=none, label="localiza", taillabel="(0,N)", headlabel="(1,1)"];
+  ENDERECO -> ENCOMENDA [dir=both, arrowtail=none, arrowhead=none, label="origem", taillabel="(0,N)", headlabel="(1,1)"];
+  ENDERECO -> ENCOMENDA [dir=both, arrowtail=none, arrowhead=none, label="destino", taillabel="(0,N)", headlabel="(1,1)", color="#7A5C58"];
+  ENCOMENDA -> VOLUME [dir=both, arrowtail=none, arrowhead=none, label="possui [identificador]", taillabel="(1,N)", headlabel="(1,1)", penwidth=1.8, color="#C55A11"];
+  ENCOMENDA -> HISTORICO [dir=both, arrowtail=none, arrowhead=none, label="gera historico", taillabel="(1,N)", headlabel="(1,1)"];
+  CD -> HISTORICO [dir=both, arrowtail=none, arrowhead=none, label="centro responsavel", taillabel="(0,N)", headlabel="(1,1)"];
+  CD -> ENDERECO [dir=both, arrowtail=none, arrowhead=none, label="localiza-se em", taillabel="(1,1)", headlabel="(0,1)"];
+  ENCOMENDA -> OCORRENCIA [dir=both, arrowtail=none, arrowhead=none, label="apresenta", taillabel="(0,N)", headlabel="(1,1)"];
+
+  ROTA -> ROTA_CIDADE [dir=both, arrowtail=none, arrowhead=none, label="compoe", taillabel="(2,N)", headlabel="(1,1)"];
+  CIDADE -> ROTA_CIDADE [dir=both, arrowtail=none, arrowhead=none, label="participa", taillabel="(0,N)", headlabel="(1,1)"];
+
+  ROTA -> EXPEDICAO [dir=both, arrowtail=none, arrowhead=none, label="utilizada por", taillabel="(0,N)", headlabel="(1,1)"];
+  VEICULO -> EXPEDICAO [dir=both, arrowtail=none, arrowhead=none, label="utilizado em", taillabel="(0,N)", headlabel="(1,1)"];
+  MOTORISTA -> EXPEDICAO [dir=both, arrowtail=none, arrowhead=none, label="conduz", taillabel="(0,N)", headlabel="(1,1)"];
+
+  EXPEDICAO -> EXP_ENC [dir=both, arrowtail=none, arrowhead=none, label="transporta", taillabel="(1,N)", headlabel="(1,1)"];
+  ENCOMENDA -> EXP_ENC [dir=both, arrowtail=none, arrowhead=none, label="participa", taillabel="(0,N)", headlabel="(1,1)"];
+
+  MOTORISTA -> TENTATIVA [dir=both, arrowtail=none, arrowhead=none, label="realiza", taillabel="(0,N)", headlabel="(1,1)"];
+  VEICULO -> TENTATIVA [dir=both, arrowtail=none, arrowhead=none, label="utilizado em", taillabel="(0,N)", headlabel="(1,1)"];
+  ENCOMENDA -> TENTATIVA [dir=both, arrowtail=none, arrowhead=none, label="possui tentativa", taillabel="(0,N)", headlabel="(1,1)"];
+
+  ENCOMENDA -> ENC_SERV [dir=both, arrowtail=none, arrowhead=none, label="contrata", taillabel="(0,N)", headlabel="(1,1)"];
+  SERVICO -> ENC_SERV [dir=both, arrowtail=none, arrowhead=none, label="e contratado", taillabel="(0,N)", headlabel="(1,1)"];
+
+  // Recursive relationship clear roles
+  FUNCIONARIO -> FUNCIONARIO [dir=both, arrowtail=none, arrowhead=none, label="supervisiona", taillabel="SUPERVISOR (0,N)", headlabel="SUBORDINADO (0,1)", color="#8A6D3B", constraint=false, minlen=2];
+
+  // layout hints
+  {rank=same; CLIENTE; ENCOMENDA; HISTORICO; CD; ENDERECO; CIDADE;}
+  {rank=same; FUNCIONARIO; MOTORISTA; EXPEDICAO; ROTA;}
+  {rank=same; VEICULO; TENTATIVA; SERVICO;}
+}
