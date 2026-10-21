@@ -1,0 +1,24 @@
+[mysql]
+host = localhost
+port = 3306
+database = db_transportadora
+user = seu_usuario_mysql_com_permissao_de_setup
+password = sua_senha_mysql
+
+# OPCIONAL, MAS RECOMENDADO PARA CUMPRIR O PRINCIPIO DO MENOR PRIVILEGIO:
+# Remova o comentário e preencha com logins MySQL REAIS. Cada login deve ter
+# recebido o papel correspondente no script 04_etapa2_seguranca_auditoria.sql.
+# Host, porta e banco podem ser omitidos em cada seção: herdam os valores de [mysql].
+# Não use placeholders entre < > como credenciais reais.
+
+# [mysql_administrador]
+# user = nexo_admin_app
+# password = troque_por_uma_senha_forte
+
+# [mysql_operador]
+# user = nexo_operador_app
+# password = troque_por_uma_senha_forte
+
+# [mysql_consulta]
+# user = nexo_consulta_app
+# password = troque_por_uma_senha_forte

@@ -1,0 +1,30 @@
+NEXO LOGISTICA - INICIO RAPIDO
+==============================
+
+1) Extraia a pasta transportadora_app para um local do computador.
+2) Abra o MySQL Workbench e conecte-se ao MySQL Server.
+3) Execute SQL, nesta ordem, somente se precisar criar/recriar uma base de teste:
+   - sql/01_ddl.sql        (APAGA e recria db_transportadora)
+   - sql/02_carga.sql
+   - sql/04_etapa2_seguranca_auditoria.sql
+   - sql/06_verificacao_etapa2.sql (somente consultas de conferência)
+4) Abra o Prompt de Comando na pasta que contém app.py e execute:
+   py -m venv .venv
+   .venv\Scripts\activate.bat
+   py -m pip install -r requirements.txt
+   py app.py
+5) Configure a conexão pela tela. Para o primeiro usuário, a conta MySQL base
+   precisa poder inserir em usuario_aplicacao. Crie a conta ADMINISTRADOR.
+6) Para cumprir o menor privilégio também no servidor, crie os usuários MySQL
+   dos papéis e preencha as seções mysql_administrador, mysql_operador e
+   mysql_consulta em config.ini, como descrito no README.md.
+7) Execute os testes locais:
+   py -m unittest discover -s tests -v
+8) Use sql/05_desempenho_transacoes.sql e docs/ETAPA2_TESTES.md para coletar
+   evidências reais de EXPLAIN, concorrência, injeção SQL e backup/restauração.
+
+IMPORTANTE
+- Nunca execute 01_ddl.sql sobre dados que queira preservar.
+- config.ini contém credenciais locais em texto simples: não compartilhe e não
+  envie ao Git. O arquivo está excluído pelo .gitignore.
+- Os testes automatizados locais não substituem a validação integrada em MySQL.
